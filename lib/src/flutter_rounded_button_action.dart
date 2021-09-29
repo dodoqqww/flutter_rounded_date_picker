@@ -15,7 +15,6 @@ class FlutterRoundedButtonAction extends StatelessWidget {
   final double borderRadius;
   final EdgeInsets? paddingActionBar;
   final Color? background;
-  final String text;
 
   const FlutterRoundedButtonAction(
       {Key? key,
@@ -29,7 +28,6 @@ class FlutterRoundedButtonAction extends StatelessWidget {
       this.textStyleButtonPositive,
       this.textStyleButtonNegative,
       this.textStyleButtonAction,
-      this.text = "Ok",
       required this.borderRadius,
       this.paddingActionBar,
       this.background})
@@ -79,9 +77,9 @@ class FlutterRoundedButtonAction extends StatelessWidget {
             icon: Icon(Icons.arrow_back),
           ),
           FloatingActionButton.extended(
-            onPressed: () => onTapButtonAction,
+            onPressed: () => onTapButtonPositive,
             icon: Icon(Icons.done),
-            label: Text(text),
+            label: Text(textButtonPositive ?? localizations.okButtonLabel),
           )
         ],
       ),
