@@ -73,11 +73,11 @@ class FlutterRoundedButtonAction extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           IconButton(
-            onPressed: () => onTapButtonNegative,
+            onPressed: onTapButtonNegative,
             icon: Icon(Icons.arrow_back),
           ),
           FloatingActionButton.extended(
-            onPressed: () => onTapButtonPositive,
+            onPressed: onTapButtonPositive,
             icon: Icon(Icons.done),
             label: Text(textButtonPositive ?? localizations.okButtonLabel),
           )
