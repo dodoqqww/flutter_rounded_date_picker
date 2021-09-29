@@ -6,7 +6,8 @@ class FlutterRoundedButtonAction extends StatelessWidget {
   final String? textActionButton;
   final VoidCallback? onTapButtonNegative; // Default is "Cancel" button.
   final VoidCallback? onTapButtonPositive; // Default is "OK" button.
-  final VoidCallback? onTapButtonAction; // Default is "Action" button which will be on the left.
+  final VoidCallback?
+      onTapButtonAction; // Default is "Action" button which will be on the left.
   final TextStyle? textStyleButtonAction;
   final TextStyle? textStyleButtonPositive;
   final TextStyle? textStyleButtonNegative;
@@ -14,6 +15,7 @@ class FlutterRoundedButtonAction extends StatelessWidget {
   final double borderRadius;
   final EdgeInsets? paddingActionBar;
   final Color? background;
+  final String text;
 
   const FlutterRoundedButtonAction(
       {Key? key,
@@ -27,6 +29,7 @@ class FlutterRoundedButtonAction extends StatelessWidget {
       this.textStyleButtonPositive,
       this.textStyleButtonNegative,
       this.textStyleButtonAction,
+      this.text = "Ok",
       required this.borderRadius,
       this.paddingActionBar,
       this.background})
@@ -63,6 +66,28 @@ class FlutterRoundedButtonAction extends StatelessWidget {
     return [negativeButton, positiveButton];
   }
 
+  Widget buildButtonBar(
+    BuildContext context,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 5, left: 5, right: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          IconButton(
+            onPressed: () => onTapButtonNegative,
+            icon: Icon(Icons.arrow_back),
+          ),
+          FloatingActionButton.extended(
+            onPressed: () => onTapButtonAction,
+            icon: Icon(Icons.done),
+            label: Text(text),
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Orientation orientation = MediaQuery.of(context).orientation;
@@ -70,12 +95,10 @@ class FlutterRoundedButtonAction extends StatelessWidget {
       padding: paddingActionBar,
       decoration: BoxDecoration(
           color: background,
-          borderRadius:
-              orientation == Orientation.landscape ? BorderRadius.only(bottomRight: Radius.circular(borderRadius)) : BorderRadius.vertical(bottom: Radius.circular(borderRadius))),
-      child: ButtonBar(
-        alignment: textActionButton != null ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
-        children: _buildActionsButton(),
-      ),
+          borderRadius: orientation == Orientation.landscape
+              ? BorderRadius.only(bottomRight: Radius.circular(borderRadius))
+              : BorderRadius.vertical(bottom: Radius.circular(borderRadius))),
+      child: buildButtonBar(context),
     );
   }
 }
